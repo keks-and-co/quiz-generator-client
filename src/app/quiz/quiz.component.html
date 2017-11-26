@@ -1,0 +1,31 @@
+<h1>
+  {{ quiz.title | uppercase }}
+</h1>
+
+<hr>
+<div *ngFor="let qBlock of quiz.qustionBlock">
+  <h4>start of a new page</h4>
+  <div *ngFor="let question of qBlock">
+    question:
+      {{question.title}}<br>
+    question type:
+      {{question.type}}
+      <div 
+        *ngFor="let answer of question.answers" 
+        (click)="onSelect(answer)"
+        [class.selected]="answer === selectedAnswer">
+        <em>{{ answer.title }}</em>
+      </div>
+      <br>
+  </div>
+  <hr>
+</div>
+
+
+<label *ngIf="selectedAnswer">selected answer:
+    <input [(ngModel)]="selectedAnswer.title" placeholder="title">
+  </label>
+
+<!-- idQ -> answer [value,id,list of ids], question-type [input, radio, checkbox, select] -->
+
+<!-- /tutorial/toh-pt3 -->
