@@ -1,6 +1,3 @@
-h1 {
-    color: #369;
-    font-size: 28px;
-    font-family: arial;
-    font-weight: 300;
-  }
+body {
+  background: green;
+}

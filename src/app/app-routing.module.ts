@@ -1,10 +1,16 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule }             from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { QuizComponent }      from './quiz/quiz.component';
+import { StartQuizComponent }      from './start-quiz/start-quiz.component';
+
+const routes: Routes = [
+  { path: 'doquiz', component: QuizComponent },
+  { path: '', component: StartQuizComponent },
+  { path: ':quizId', component: StartQuizComponent },
+];
 
 @NgModule({
-  imports: [
-    CommonModule
-  ],
-  declarations: []
+  imports: [ RouterModule.forRoot(routes) ],
+  exports: [ RouterModule ],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

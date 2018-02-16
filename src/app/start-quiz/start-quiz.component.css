@@ -1,0 +1,10 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+.start-quiz-card {
+    display: block;
+    max-width: 500px;
+    max-height: 400px;
+    text-align: center;
+    margin: 0 auto;
+    height: 100vh;
+}

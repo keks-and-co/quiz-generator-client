@@ -10,7 +10,8 @@ export class QuizService {
 
   constructor() { }
 
-  getQuiz(): Observable<Quiz> {
+  getQuiz(id: number = 0): Observable<Quiz> {
+    // of(QUIZ.find(quiz => quiz.id === id));
     return of(QUIZ);
   }
     
