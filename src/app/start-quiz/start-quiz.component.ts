@@ -20,16 +20,32 @@ export class StartQuizComponent implements OnInit {
   ) { }
 
   quizID = this.route.snapshot.paramMap.get('quizId');
+  notFound = false;
+  loadingQuiz = false;
 
   ngOnInit() {
-    this.getQuiz();
+    if(this.quizID !== null) {
+      this.getQuiz();
+    }
   }
 
   getQuiz(): void {
+    // checking for existing quiz
+    this.loadingQuiz = true;
+    setTimeout(() => {
+      if(this.quizID === 'yes') {
+        this.router.navigate(['/doquiz']);
+      } else {
+        this.notFound = true;
+      }
+      this.loadingQuiz = false;
+    }, 3000);
+    
+  }
 
-    if(this.quizID === 'yes') {
-      this.router.navigate(['/doquiz']);
-    }
+  findQuiz(tryQuiz: string) {
+    this.quizID = tryQuiz;
+    return this.getQuiz();
   }
 
   // goBack(): void {

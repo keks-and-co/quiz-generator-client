@@ -1,6 +1,13 @@
 h1 {
     text-transform: uppercase;
+    text-align: center
 }
 .selected {
     color: green;
+}
+
+.do-quiz-card { 
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
 }

@@ -1,7 +1,17 @@
 
 <mat-card class="start-quiz-card center-card">
-  <mat-spinner class="global-block-center global-spinner"></mat-spinner>
-  <h1>{{ quizID }}</h1>
+  <div *ngIf="loadingQuiz" class="ng-hide">
+    <mat-spinner class="global-block-center global-spinner"></mat-spinner>
+    <h2>Loading {{ quizID }}</h2>
+  </div>
+  <div *ngIf="notFound && !loadingQuiz" class="ng-hide">
+    <h2>Sorry {{ quizID }} not found</h2>
+  </div>
+  <div *ngIf="!loadingQuiz" class="ng-hide">
+    <h3>Please fill in your quiz ID</h3>
+    <input #tryQuiz (keyup.enter)="findQuiz(tryQuiz.value)" />
+    <button (click)="findQuiz(tryQuiz.value)">Start</button>
+  </div>
 </mat-card>
 
 

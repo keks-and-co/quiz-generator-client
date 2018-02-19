@@ -1,7 +1,10 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 .start-quiz-card {
-    display: block;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    flex-direction: column;
     max-width: 500px;
     max-height: 400px;
     text-align: center;

@@ -5,6 +5,9 @@ import { of } from 'rxjs/observable/of';
 import { Quiz } from './data/quiz';
 import { QUIZ } from './data/mock-quiz';
 
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { catchError, map, tap } from 'rxjs/operators';
+
 @Injectable()
 export class QuizService {
 
