@@ -1,26 +1,33 @@
 <mat-card class="do-quiz-card center-card">
+
   <h1>
     {{ quiz.title | uppercase }}
   </h1>
 
-  <hr>
-  <div *ngFor="let qBlock of quiz.qustionBlock">
-    <h4>start of a new page</h4>
-    <div *ngFor="let question of qBlock">
-      question:
-        {{question.title}}<br>
-      question type:
-        {{question.type}}
-        <div 
-          *ngFor="let answer of question.answers" 
-          (click)="onSelect(answer)"
-          [class.selected]="answer === selectedAnswer">
-          <em>{{ answer.title }}</em>
-        </div>
-        <br>
-    </div>
-    <hr>
-  </div>
+  <form [formGroup]="formGroup">
+      <mat-horizontal-stepper #stepper="matHorizontalStepper" linear>
+
+        <mat-step *ngFor="let qBlock of quiz.qustionBlock">
+          <ng-template matStepLabel></ng-template>
+            <div *ngFor="let question of qBlock">
+              question:
+                {{question.title}}<br>
+              question type:
+                {{question.type}}
+                <div
+                  *ngFor="let answer of question.answers"
+                  (click)="onSelect(answer)"
+                  [class.selected]="answer === selectedAnswer">
+                  <em>{{ answer.title }}</em>
+                </div>
+                <br>
+            </div>
+            <div>
+              <button mat-button matStepperNext type="button">Next</button>
+            </div>
+        </mat-step>
+      </mat-horizontal-stepper>
+    </form>
 
   <label *ngIf="selectedAnswer">selected answer:
     <input [(ngModel)]="selectedAnswer.title" placeholder="title">

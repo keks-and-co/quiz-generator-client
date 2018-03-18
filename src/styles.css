@@ -32,6 +32,14 @@ app-root {
     margin: 0 auto;
 }
 
-.global-spinner.mat-progress-spinner circle, .mat-spinner.mat-accent circle {
+.global-spinner.mat-progress-spinner circle, 
+.mat-spinner.mat-accent circle {
     stroke: #0E9167;
+}
+
+.mat-step-header {
+    width: 72px;
+}
+.mat-step-header .mat-step-icon {
+    background: #0E9167;
 }
