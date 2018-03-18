@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { AsyncLocalStorage } from 'angular-async-local-storage';
 
 import { QuizService } from '../quiz.service';
 
@@ -16,7 +17,9 @@ export class StartQuizComponent implements OnInit {
     private route: ActivatedRoute,
     private heroService: QuizService,
     private location: Location,
-    private router: Router
+    private router: Router,
+    private quizService: QuizService,
+    protected localStorage: AsyncLocalStorage,
   ) { }
 
   quizID = this.route.snapshot.paramMap.get('quizId');
@@ -32,19 +35,25 @@ export class StartQuizComponent implements OnInit {
   getQuiz(): void {
     // checking for existing quiz
     this.loadingQuiz = true;
-    setTimeout(() => {
-      if(this.quizID === 'yes') {
-        this.router.navigate(['/doquiz']);
-      } else {
+
+    this.quizService.getQuiz(this.quizID)
+      .subscribe(quiz => {
+        if (quiz) {
+          this.localStorage.setItem('quiz', { id: quiz.id }).subscribe(() => {});
+          this.router.navigate(['/doquiz']);
+        } else {
+          this.notFound = true;
+        }
+      }, error => {
         this.notFound = true;
-      }
-      this.loadingQuiz = false;
-    }, 3000);
-    
+      }, () => {
+        this.loadingQuiz = false;
+      });
   }
 
   findQuiz(tryQuiz: string) {
     this.quizID = tryQuiz;
+    this.router.navigate([tryQuiz]);
     return this.getQuiz();
   }
 

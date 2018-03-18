@@ -6,7 +6,9 @@
 
 
   <form [formGroup]="formGroup" (submit)="onSubmit()">
-
+    <div *ngIf="!renderQuestions" class="ng-hide">
+      <mat-spinner class="global-block-center global-spinner"></mat-spinner>
+    </div>
     <div *ngIf="renderQuestions">
       <mat-horizontal-stepper #stepper="matHorizontalStepper" linear>
 
@@ -29,11 +31,20 @@
             </div>
             <div>
               <button *ngIf="i>0" mat-button matStepperPrevious type="button">Back</button>
-              <button *ngIf="i!=quiz.questions.length-1; else elseBlock" mat-button matStepperNext type="button">Next</button>
-              <ng-template #elseBlock>
-                <button type="submit" mat-raised-button>Submit</button>
-              </ng-template>
+              <button mat-button matStepperNext type="button">Next</button>
             </div>
+        </mat-step>
+        <mat-step>
+          <ng-template matStepLabel></ng-template>
+          <re-captcha
+          (resolved)="resolved($event)"
+          siteKey="6LfGZU0UAAAAAG8CrfWGJlZdXdtDrT-z2nwPgA5U"
+        ></re-captcha>
+          <div>
+              <button mat-button matStepperPrevious type="button">Back</button>
+              <button type="submit" mat-raised-button>Submit</button>
+          </div>
+
         </mat-step>
       </mat-horizontal-stepper>
     </div>

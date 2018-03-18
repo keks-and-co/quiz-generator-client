@@ -1,9 +1,12 @@
+import { catchError } from 'rxjs/operators';
 import { Question } from './../data/question';
 import { Quiz } from './../data/quiz';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { AsyncLocalStorage } from 'angular-async-local-storage';
 
+import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 import { Answer } from '../data/answer';
 
 import { HttpClientModule } from '@angular/common/http';
@@ -20,9 +23,13 @@ export class QuizComponent implements OnInit {
   quiz = <Quiz>{};
   renderQuestions = false;
   isLinear = false;
+  resolvedCaptcha = false;
   formGroup: FormGroup;
 
   constructor(
+    private route: ActivatedRoute,
+    private location: Location,
+    private router: Router,
     private quizService: QuizService,
     private _formBuilder: FormBuilder,
     protected localStorage: AsyncLocalStorage
@@ -30,14 +37,21 @@ export class QuizComponent implements OnInit {
 
   getQuiz(): Promise<{}> {
     let promise = new Promise((resolve, reject) => {
-      this.quizService.getQuiz()
+      this.localStorage.getItem('quiz')
+      .subscribe((quizy) => {
+        if(!quizy) {
+          reject('not found');
+        }
+        this.quizService.getQuiz(quizy.id)
         .subscribe(quiz => {
           this.quiz = quiz;
           resolve();
+        }, error => {
+          reject('not found');
         });
+      });
     });
     return promise;
-
   }
 
   ngOnInit() {
@@ -50,7 +64,8 @@ export class QuizComponent implements OnInit {
         this._subcribeToFormChanges();
         this.renderQuestions = true;
       });
-
+    }).catch(() => {
+      this.router.navigate(['/']);
     });
 
     this.formGroup = this._formBuilder.group({});
@@ -82,11 +97,16 @@ export class QuizComponent implements OnInit {
     this.selectedAnswer = answer1;
   }
 
+  resolved(captchaResponse: string) {
+    this.resolvedCaptcha = (captchaResponse === null) ? false : true;
+  }
+
   onSubmit() {
-    if (this.formGroup.valid) {
+    if (this.formGroup.valid && this.resolvedCaptcha) {
       console.log(this.formGroup.value);
       this.formGroup.reset;
       this.localStorage.clear().subscribe(() => {});
+
     }
   }
 

@@ -12,6 +12,7 @@ import { MatProgressSpinnerModule,
 import { AppComponent } from './app.component';
 import { QuizComponent } from './quiz/quiz.component';
 import { AsyncLocalStorageModule } from 'angular-async-local-storage';
+import { RecaptchaModule } from 'ng-recaptcha';
 import { QuizService } from './quiz.service';
 import { AppRoutingModule } from './/app-routing.module';
 import { StartQuizComponent } from './start-quiz/start-quiz.component';
@@ -23,6 +24,7 @@ import { StartQuizComponent } from './start-quiz/start-quiz.component';
     StartQuizComponent
   ],
   imports: [
+    RecaptchaModule.forRoot(),
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
