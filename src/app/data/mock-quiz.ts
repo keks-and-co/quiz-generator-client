@@ -7,18 +7,18 @@ let questionsBlock = [
             title: 'FirstQ',
             answers: [
                 {
-                    
+
                     id: 435346,
                     title: 'firstA',
                     value: 'yes',
-                      
+
                 },
                 {
-                    
+
                     id: 327642,
                     title: 'secondA',
                     value: 'yes',
-                      
+
                 }
             ],
             type: 'radio',
@@ -32,11 +32,11 @@ let questionsBlock = [
             title: 'SecondQ',
             answers: [
                 {
-                    
+
                     id: 264723,
                     title: 'not necessary',
                     value: 'yes',
-                      
+
                 }
             ],
             type: 'input',
@@ -48,18 +48,18 @@ let questionsBlock = [
             title: 'ThirdQ',
             answers: [
                 {
-                    
+
                     id: 365923,
                     title: 'selA1',
                     value: 'yes',
-                      
+
                 },
                 {
-                    
+
                     id: 554562,
                     title: 'selA2',
                     value: 'yes',
-                      
+
                 }
             ],
             type: 'select',
@@ -67,12 +67,13 @@ let questionsBlock = [
             multipleAnswers: false,
         },
     ]
-] 
+]
 
 export const QUIZ: Quiz = {
     id: 1,
-    title: 'First quiz',
-    qustionBlock: questionsBlock,
-    isActive: true,
-    isAnonymous: true,
+    per_page: 2,
+    name: 'First quiz',
+    questions: questionsBlock,
+    is_active: true,
+    // isAnonymous: true,
 }

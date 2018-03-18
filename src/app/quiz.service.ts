@@ -11,11 +11,17 @@ import { catchError, map, tap } from 'rxjs/operators';
 @Injectable()
 export class QuizService {
 
-  constructor() { }
+  constructor(
+    private http: HttpClient) { }
 
-  getQuiz(id: number = 0): Observable<Quiz> {
-    // of(QUIZ.find(quiz => quiz.id === id));
-    return of(QUIZ);
+  private quizesUrl = 'http://localhost/quiz-generator/public/api/quiz';  // URL to web api
+
+  getQuiz(id: number = 66): Observable<Quiz> {
+    const url = `${this.quizesUrl}/${id}`;
+
+    return this.http.get<Quiz>(url);
+
   }
-    
+
+
 }

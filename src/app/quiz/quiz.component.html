@@ -1,37 +1,49 @@
 <mat-card class="do-quiz-card center-card">
 
   <h1>
-    {{ quiz.title | uppercase }}
+    {{ quiz.name | uppercase }}
   </h1>
 
-  <form [formGroup]="formGroup">
+
+  <form [formGroup]="formGroup" (submit)="onSubmit()">
+
+    <div *ngIf="renderQuestions">
       <mat-horizontal-stepper #stepper="matHorizontalStepper" linear>
 
-        <mat-step *ngFor="let qBlock of quiz.qustionBlock">
+        <mat-step *ngFor="let qBlock of quiz.questions; let i = index" [attr.data-index]="i">
           <ng-template matStepLabel></ng-template>
             <div *ngFor="let question of qBlock">
               question:
-                {{question.title}}<br>
+                {{ question.value }} - id({{ question.id }})<br>
+                <input formControlName="{{ question.id }}" />
               question type:
-                {{question.type}}
+                {{ question.type || 'none' }}
                 <div
                   *ngFor="let answer of question.answers"
                   (click)="onSelect(answer)"
                   [class.selected]="answer === selectedAnswer">
-                  <em>{{ answer.title }}</em>
+                  <em>{{ answer.value }} - id({{ question.id }})</em>
                 </div>
                 <br>
+                <hr>
             </div>
             <div>
-              <button mat-button matStepperNext type="button">Next</button>
+              <button *ngIf="i>0" mat-button matStepperPrevious type="button">Back</button>
+              <button *ngIf="i!=quiz.questions.length-1; else elseBlock" mat-button matStepperNext type="button">Next</button>
+              <ng-template #elseBlock>
+                <button type="submit" mat-raised-button>Submit</button>
+              </ng-template>
             </div>
         </mat-step>
       </mat-horizontal-stepper>
-    </form>
+    </div>
 
-  <label *ngIf="selectedAnswer">selected answer:
+  </form>
+
+
+  <!-- <label *ngIf="selectedAnswer">selected answer:
     <input [(ngModel)]="selectedAnswer.title" placeholder="title">
-  </label>
+  </label> -->
 
 </mat-card>
 
