@@ -7,6 +7,10 @@ import { MatProgressSpinnerModule,
          MatCardModule,
          MatButtonModule,
          MatStepperModule,
+         MatCheckboxModule,
+         MatRadioModule,
+         MatSelectModule,
+         MatInputModule,
          MatIconModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
@@ -34,6 +38,10 @@ import { StartQuizComponent } from './start-quiz/start-quiz.component';
     MatCardModule,
     MatProgressSpinnerModule,
     MatStepperModule,
+    MatCheckboxModule,
+    MatRadioModule,
+    MatSelectModule,
+    MatInputModule,
     MatIconModule,
     HttpClientModule,
     BrowserModule,

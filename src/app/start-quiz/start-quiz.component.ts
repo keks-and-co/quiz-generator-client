@@ -39,8 +39,9 @@ export class StartQuizComponent implements OnInit {
     this.quizService.getQuiz(this.quizID)
       .subscribe(quiz => {
         if (quiz) {
-          this.localStorage.setItem('quiz', { id: quiz.id }).subscribe(() => {});
-          this.router.navigate(['/doquiz']);
+          this.localStorage.setItem('quiz', { id: quiz.id }).subscribe(() => {
+            this.router.navigate(['/doquiz']);
+          });
         } else {
           this.notFound = true;
         }

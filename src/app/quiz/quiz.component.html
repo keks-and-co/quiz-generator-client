@@ -14,19 +14,48 @@
 
         <mat-step *ngFor="let qBlock of quiz.questions; let i = index" [attr.data-index]="i">
           <ng-template matStepLabel></ng-template>
-            <div *ngFor="let question of qBlock">
+            <div *ngFor="let question of qBlock; let qI = index">
               question:
                 {{ question.value }} - id({{ question.id }})<br>
-                <input formControlName="{{ question.id }}" />
-              question type:
-                {{ question.type || 'none' }}
-                <div
-                  *ngFor="let answer of question.answers"
-                  (click)="onSelect(answer)"
-                  [class.selected]="answer === selectedAnswer">
-                  <em>{{ answer.value }} - id({{ question.id }})</em>
+                <!-- <input formControlName="{{ question.id }}" /> -->
+              <!-- question type:
+                {{ question.type || 'none' }} -->
+                <!-- <div *ngFor="let answer of question.answers">
+                  <em>{{ answer.value }} - id({{ answer.id }})</em>
+                </div> -->
+
+                <div *ngIf="qI == 0 && i == 0" >
+                    <mat-checkbox *ngFor="let answer of question.answers" formControlName="{{ question.id }}" value="{{answer.id}}">
+                        {{ answer.value }}<br>
+                    </mat-checkbox>
                 </div>
-                <br>
+
+                <div *ngIf="qI == 1 && i == 0" >
+                    <mat-radio-group formControlName="{{ question.id }}" >
+                      <mat-radio-button *ngFor="let answer of question.answers"  value="{{answer.id}}">{{ answer.value }}</mat-radio-button><br>
+                    </mat-radio-group>
+                </div>
+
+                <div *ngIf="qI == 2 && i == 0" >
+                  <mat-select placeholder="Please select" formControlName="{{ question.id }}">
+                    <mat-option *ngFor="let answer of question.answers" value="{{answer.id}}">
+                      {{ answer.value }}
+                    </mat-option>
+                  </mat-select>
+                </div>
+
+                <div *ngIf="qI == 0 && i == 1" >
+                  <mat-form-field>
+                    <input matInput placeholder="Please fill in" formControlName="{{ question.id }}">
+                  </mat-form-field>
+                </div>
+
+                <div *ngIf="qI == 1 && i == 1" >
+                  <mat-radio-group formControlName="{{ question.id }}" >
+                    <mat-radio-button *ngFor="let answer of question.answers"  value="{{answer.id}}">{{ answer.value }}</mat-radio-button>
+                  </mat-radio-group>
+                </div>
+
                 <hr>
             </div>
             <div>

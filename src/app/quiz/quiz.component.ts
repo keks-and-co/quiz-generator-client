@@ -75,6 +75,7 @@ export class QuizComponent implements OnInit {
     const myFormValueChanges$ = this.formGroup.valueChanges;
 
     myFormValueChanges$.subscribe(x => {
+      console.log(this.formGroup.value);
       this.localStorage.setItem('questions', this.formGroup.value).subscribe(() => {
       });
     });
