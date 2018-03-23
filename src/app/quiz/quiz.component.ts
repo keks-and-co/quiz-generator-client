@@ -41,14 +41,15 @@ export class QuizComponent implements OnInit {
       .subscribe((quizy) => {
         if(!quizy) {
           reject('not found');
+        } else {
+          this.quizService.getQuiz(quizy.id)
+          .subscribe(quiz => {
+            this.quiz = quiz;
+            resolve();
+          }, error => {
+            reject('not found');
+          });
         }
-        this.quizService.getQuiz(quizy.id)
-        .subscribe(quiz => {
-          this.quiz = quiz;
-          resolve();
-        }, error => {
-          reject('not found');
-        });
       });
     });
     return promise;

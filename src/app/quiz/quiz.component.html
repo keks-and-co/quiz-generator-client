@@ -1,6 +1,6 @@
 <mat-card class="do-quiz-card center-card">
 
-  <h1>
+  <h1 *ngIf="quiz.name">
     {{ quiz.name | uppercase }}
   </h1>
 
@@ -15,24 +15,21 @@
         <mat-step *ngFor="let qBlock of quiz.questions; let i = index" [attr.data-index]="i">
           <ng-template matStepLabel></ng-template>
             <div *ngFor="let question of qBlock; let qI = index">
-              question:
-                {{ question.value }} - id({{ question.id }})<br>
-                <!-- <input formControlName="{{ question.id }}" /> -->
-              <!-- question type:
-                {{ question.type || 'none' }} -->
-                <!-- <div *ngFor="let answer of question.answers">
-                  <em>{{ answer.value }} - id({{ answer.id }})</em>
-                </div> -->
 
+                {{ question.value }}
                 <div *ngIf="qI == 0 && i == 0" >
-                    <mat-checkbox *ngFor="let answer of question.answers" formControlName="{{ question.id }}" value="{{answer.id}}">
-                        {{ answer.value }}<br>
-                    </mat-checkbox>
+
+                    <mat-form-field>
+                      <mat-select placeholder="{{ question.value }}" formControlName="{{ question.id }}" multiple>
+                        <mat-option *ngFor="let answer of question.answers" [value]="answer.id">{{ answer.value }}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+
                 </div>
 
                 <div *ngIf="qI == 1 && i == 0" >
-                    <mat-radio-group formControlName="{{ question.id }}" >
-                      <mat-radio-button *ngFor="let answer of question.answers"  value="{{answer.id}}">{{ answer.value }}</mat-radio-button><br>
+                    <mat-radio-group formControlName="{{ question.id }}">
+                      <mat-radio-button *ngFor="let answer of question.answers"  value="{{answer.id}}">{{ answer.value }}<br></mat-radio-button>
                     </mat-radio-group>
                 </div>
 

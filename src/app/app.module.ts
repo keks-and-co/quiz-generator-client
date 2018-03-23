@@ -11,6 +11,7 @@ import { MatProgressSpinnerModule,
          MatRadioModule,
          MatSelectModule,
          MatInputModule,
+         MatListModule,
          MatIconModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
@@ -42,6 +43,7 @@ import { StartQuizComponent } from './start-quiz/start-quiz.component';
     MatRadioModule,
     MatSelectModule,
     MatInputModule,
+    MatListModule,
     MatIconModule,
     HttpClientModule,
     BrowserModule,

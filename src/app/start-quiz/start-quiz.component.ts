@@ -58,8 +58,4 @@ export class StartQuizComponent implements OnInit {
     return this.getQuiz();
   }
 
-  // goBack(): void {
-  //   this.location.back();
-  // }
-
 }
